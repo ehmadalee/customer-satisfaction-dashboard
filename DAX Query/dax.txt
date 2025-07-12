@@ -13,3 +13,23 @@ Female Satisfaction = CALCULATE([Avg Satisfaction], 'Customer Satisfaction'[Gend
 Loyalty Count = COUNTROWS(FILTER('Customer Satisfaction', 'Customer Satisfaction'[Loyalty_Level] = "High"))
 ------------------------------------------------------------------------------------------------------------------
 Male Satisfaction = CALCULATE([Avg Satisfaction], 'Customer Satisfaction'[Gender] = "Male")
+------------------------------------------------------------------------------------------------------------------
+High Loyalty % = 
+CALCULATE(
+    DIVIDE(COUNTROWS('Customer Satisfaction'), CALCULATE(COUNTROWS('Customer Satisfaction'), ALL('Customer Satisfaction'))),
+    'Customer Satisfaction'[Loyalty_Level] = "High"
+)
+------------------------------------------------------------------------------------------------------------------
+Support Satisfaction = CALCULATE([Avg Satisfaction], 'Customer Satisfaction'[Support_Contacted] = "Yes")
+------------------------------------------------------------------------------------------------------------------
+No Support Satisfaction = CALCULATE([Avg Satisfaction], 'Customer Satisfaction'[Support_Contacted] = "No")
+------------------------------------------------------------------------------------------------------------------
+Repeat Satisfaction = CALCULATE([Avg Satisfaction], 'Customer Satisfaction'[Purchase_History] = "Yes")
+------------------------------------------------------------------------------------------------------------------
+OneTime Satisfaction = CALCULATE([Avg Satisfaction], 'Customer Satisfaction'[Purchase_History] = "No")
+------------------------------------------------------------------------------------------------------------------
+Most Common Factor (Gender) = 
+CALCULATE(
+    TOPN(1, VALUES('Customer Satisfaction'[Satisfaction_Factor]), COUNTROWS('Customer Satisfaction')),
+    'Customer Satisfaction'[Gender] = "Female"
+)
