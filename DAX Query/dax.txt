@@ -1,0 +1,15 @@
+Age Segment = SWITCH(
+    TRUE(),
+    'Customer Satisfaction'[Age] <= 25, "Gen Z",
+    'Customer Satisfaction'[Age] <= 40, "Millennial",
+    'Customer Satisfaction'[Age] <= 55, "Gen X",
+    "Senior"
+)
+------------------------------------------------------------------------------------------------------------------
+Avg Satisfaction = AVERAGE('Customer Satisfaction'[Satisfaction_Score])
+------------------------------------------------------------------------------------------------------------------
+Female Satisfaction = CALCULATE([Avg Satisfaction], 'Customer Satisfaction'[Gender] = "Female")
+------------------------------------------------------------------------------------------------------------------
+Loyalty Count = COUNTROWS(FILTER('Customer Satisfaction', 'Customer Satisfaction'[Loyalty_Level] = "High"))
+------------------------------------------------------------------------------------------------------------------
+Male Satisfaction = CALCULATE([Avg Satisfaction], 'Customer Satisfaction'[Gender] = "Male")
